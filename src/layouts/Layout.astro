@@ -1,0 +1,76 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/variables.css';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+const navItems = [{
+	href: '/',
+	text: 'Home'
+}];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<link href="/fonts/fontawesome/css/fontawesome.css" rel="stylesheet" />
+		<link href="/fonts/fontawesome/css/brands.css" rel="stylesheet" />
+		<link href="/fonts/fontawesome/css/solid.css" rel="stylesheet" />
+	</head>
+	<body>
+		<Header logo={'/lobster-logic-logo-bg-fill.svg'} navItems={navItems} />
+		<slot />
+		<Footer copyright={"Lobster Logic Solutions, LLC."}/>
+	</body>
+</html>
+<style is:global>
+	:root {
+		--accent: 136, 58, 234;
+		--accent-light: 224, 204, 250;
+		--accent-dark: 49, 10, 101;
+		--accent-gradient: linear-gradient(
+			45deg,
+			rgb(var(--accent)),
+			rgb(var(--accent-light)) 30%,
+			white 60%
+		);
+	}
+	@font-face {
+		font-family: 'Righteous';
+		src: url('/fonts/Righteous-Regular.ttf') format('ttf');
+		font-weight: normal;
+		font-style: normal;
+		font-display: swap;
+	}
+	@font-face {
+		font-family: 'Montserrat';
+		src: url('/fonts/Montserrat-VariableFont_wght.ttf') format('ttf');
+		font-weight: normal;
+		font-style: normal;
+		font-display: swap;
+	}
+	html {
+		font-family: var(--font-body);
+		background: var(--color-neutral-primary);
+		font-size: 16px;
+	}
+	textarea, input {
+		font-family: var(--font-body);
+	}
+	h1, h2, h3, h4, h5, h6, button, label {
+		font-family: var(--font-heading);
+	}
+	body {
+		margin: var(--spacing-0);
+	}
+</style>

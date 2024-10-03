@@ -1,0 +1,69 @@
+---
+interface NavItem {
+	text: string;
+	href: string;
+}
+interface Props {
+	navItems: NavItem[];
+	title?: string;
+	logo?: string;
+}
+
+const {navItems, title, logo } = Astro.props;
+const { url } = Astro.request;
+
+const pathname = new URL(url).pathname;
+---
+<header>
+	{logo && <img src={logo} />}
+	{title && <p>{title}</p>}
+	<nav>
+		<ul>
+			{navItems.map(navItem => {
+				return <li><a class={pathname === navItem.href ? "active" : ""} href={navItem.href}>{navItem.text}</a></li>
+			})}
+		</ul>
+	</nav>
+</header>
+
+<style>
+	li, a, p {
+		color: var(--color-neutral-primary);
+		font-weight: 700;
+		font-size: var(--spacing-150);
+	}
+	header, ul {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+	header {
+		border-bottom: 3px solid var(--color-secondary);
+		background-color: var(--color-primary);
+		position: sticky;
+		top: 0;
+		padding: 0 var(--spacing-200);
+	}
+	ul {
+		margin: 0;
+	}
+	p {
+		margin: var(--spacing-100) 0;
+	}
+	li {
+		list-style: none;
+		padding: var(--spacing-100) var(--spacing-200);
+	}
+	a {
+		text-decoration: none;
+	}
+	a.active {
+		border-bottom: 3px solid var(--color-secondary);
+		padding: 0 var(--spacing-50);
+	}
+	img {
+		height: 100%;
+		width: 50px;
+		margin-right: var(--spacing-100);
+	}
+</style>

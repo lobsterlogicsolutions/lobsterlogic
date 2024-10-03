@@ -1,0 +1,69 @@
+---
+interface FooterItem {
+	text: string;
+	href: string;
+	icon: string;
+}
+interface Props {
+	footerItems?: FooterItem[];
+	copyright: string;
+}
+
+const {footerItems, copyright} = Astro.props;
+const year = new Date().getFullYear()
+---
+<footer>
+	<p>&#169; {year} {copyright}</p>
+	{footerItems && 
+		<nav>
+			<ul>
+				{footerItems.map(footerItem => {
+					if(footerItem.icon) {
+						return <li><a href={footerItem.href}><i class={footerItem.icon}></i></a></li>
+					} else {
+						return <li><a href={footerItem.href}>{footerItem.text}</a></li>
+					}
+				})}
+			</ul>
+		</nav>
+	}
+</footer>
+
+<style>
+	a, p {
+		color: var(--color-neutral-primary);
+		font-weight: 700;
+	}
+	footer, ul {
+		display: flex;
+		flex-direction: row;
+	}
+	footer {
+		border-top: 3px solid var(--color-secondary);
+		background-color: var(--color-primary);
+		bottom: 0;
+		padding: var(--spacing-200) var(--spacing-500);
+		justify-content: space-between;
+		align-items: center;
+	}
+	ul {
+		margin: 0;
+	}
+	p {
+		margin: var(--spacing-100) 0;
+		font-size: var(--spacing-100)
+	}
+	li {
+		list-style: none;
+		padding: var(--spacing-100) var(--spacing-200);
+	}
+	i {
+		font-size: var(--spacing-200);
+	}
+	a {
+		text-decoration: none;
+	}
+	a.active, a:hover {
+		color: var(--color-secondary);	
+	}
+</style>

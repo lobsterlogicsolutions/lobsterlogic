@@ -1,16 +1,166 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+export const prerender = false;
 
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Lobster Logic Solutions, LLC. | Software Consulting">
+	<main>
+		<section class="hero">
+			<img src="lobster-logic-logo.svg" alt="Lobster Logic Solutions logo" />
+			<h1>LOBSTER LOGIC</h1>
+			<div class="sub-heading">
+				<hr />
+				<p>SOLUTIONS</p>
+				<hr />
+			</div>
+		</section>
+		<section>
+			<div>
+				<p>
+					Lobster Logic Solutions delivers custom software consulting tailored to elevate Maine-based businesses. Our team of experts combines deep technical knowledge and a client-centric approach to solve unique challenges efficiently.
+				</p>
+			</div>
+		</section>
+		<section class="bg">
+			<div class="section">
+				<h2>Our Services</h2>
+				<li>Application Development
+					<ul>
+						<li class="list-style">We craft custom applications to fit specific business needs using technologies like Java, JavaScript, Python, TypeScript, Flask, Django, React, and React Native.</li>
+					</ul>
+				</li>
+				<li>Company Workshops
+					<ul>
+						<li class="list-style">Enhance your team's capabilities with our workshops focused on new technologies and software best practices.</li>
+					</ul>
+				</li>
+				<li>IT Assessments
+					<ul>
+						<li class="list-style">We perform thorough assessments to pinpoint improvements in your IT setup and develop strategies for enhanced efficiency and security.</li>
+					</ul>
+				</li>
+				<li>Specialized Fields
+					<ul>
+						<li class="list-style">DevOps: We streamline your development and operations for better agility.</li>
+						<li class="list-style">Data Science: Our data-driven insights help inform your decision-making process.</li>
+						<li class="list-style">AI/ML Development: We integrate AI and ML to solve complex issues and drive innovation.</li>
+					</ul>
+				</li>
+			</div>
+		</section>
+		<section>
+			<h2>Reach out to us</h2>
+			<ContactForm/>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	main {
+		color: var(--color-primary);
+		font-size: var(--spacing-125);
+		line-height: 1.6;
+	}
+	section, .section {
+		padding: var(--spacing-100);
+		width: 800px;
+		max-width: calc(100% - 2rem);
+		margin: auto;
+	}
+	section.bg {
+		width: 100%;
+		max-width: 100%;
+		padding: 0;
+		background-color: var(--color-primary);
+		color: var(--color-neutral-primary);
+	}
+	section.bg {
+		width: 100%;
+		max-width: 100%;
+		padding: 
+		background-color: var(--color-primary);
+		color: var(--color-neutral-primary);
+	}
+	h1 {
+		font-size: var(--spacing-400);
+		font-weight: 700;
+		line-height: 1;
+		text-align: center;
+		margin-bottom: var(--spacing-100);
+	}
+	ul {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		padding: 0;
+		gap: var(--spacing-125);
+	}
+	li {
+		list-style-type: none;
+	}
+	.list-style {
+		list-style-type: disc;
+		margin-left: var(--spacing-250);
+	}
+	a {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+		border-radius: var(--spacing-75);
+		background-color: var(--color-primary);
+		border: 2px solid var(--color-secondary);
+		color: var(--color-neutral-primary);
+		padding: var(--spacing-100);
+	}
+	img {
+		height: 350px;
+		width: auto;
+	}
+	a:hover, a:focus-visible {
+		background-color: var(--color-neutral-primary);
+		border: 2px solid var(--color-primary);
+		color: var(--color-primary);
+	}
+	a:focus-visible {
+		outline-offset: var(--spacing-25);
+	}
+	.hero {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+		padding: var(--spacing-200) 0;
+	}
+	.sub-heading {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+	}
+	.hero p {
+		font-size: var(--spacing-250);
+		font-weight: 700;
+		line-height: 1;
+		text-align: center;
+		margin: 0 var(--spacing-250);
+	}
+	hr {
+		background-color: var(--color-secondary);
+		max-width: 100px;
+		flex-basis: 25%;
+		height: 5px;
+		margin: 0;
+	}
+	.icon {
+		font-size: var(--spacing-200);
+	}
+	.label {
+		margin-left: var(--spacing-100);
+	}
+
+</style>
