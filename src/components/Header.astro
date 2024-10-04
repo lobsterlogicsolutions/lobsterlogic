@@ -14,9 +14,16 @@ const { url } = Astro.request;
 
 const pathname = new URL(url).pathname;
 ---
-<header>
-	{logo && <img src={logo} />}
+<header id="header">
+	{logo && <a id="logo" href="/"><img src={logo} /></a>}
 	{title && <p>{title}</p>}
+	<button id="nav-toggle" aria-expanded="false">
+		<svg width="30" height="30" viewBox="0 0 30 30">
+			<line class="line top" x1="5" y1="8" x2="25" y2="8" stroke-width="3" stroke-linecap="round" />
+			<line class="line middle" x1="5" y1="15" x2="25" y2="15" stroke-width="3" stroke-linecap="round" />
+			<line class="line bottom" x1="5" y1="22" x2="25" y2="22" stroke-width="3" stroke-linecap="round" />
+		  </svg>
+	</button>
 	<nav>
 		<ul>
 			{navItems.map(navItem => {
@@ -25,6 +32,32 @@ const pathname = new URL(url).pathname;
 		</ul>
 	</nav>
 </header>
+
+<script>
+	const logo = document.getElementById('logo');
+	const header = document.getElementById('header');
+	const hero = document.getElementById('hero');
+	const navToggle = document.getElementById('nav-toggle');
+	if(hero) {
+		window.onscroll = (e) => {
+			if(window.scrollY > (hero?.scrollTop + hero?.offsetHeight)) {
+				logo?.classList.add('show');
+				header?.classList.add('shift');
+			} else {
+				logo?.classList.remove('show');
+				header?.classList.remove('shift');
+			}
+		};
+	}
+
+	navToggle?.addEventListener('click', (e) => {
+		document.querySelector('nav')?.classList.toggle('open');
+		navToggle?.classList.toggle('open');
+		const isExpanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
+  		navToggle.setAttribute('aria-expanded', !isExpanded);
+	})
+
+</script>
 
 <style>
 	li, a, p {
@@ -42,10 +75,12 @@ const pathname = new URL(url).pathname;
 		background-color: var(--color-primary);
 		position: sticky;
 		top: 0;
-		padding: 0 var(--spacing-200);
+		padding: 0 var(--spacing-300);
+		justify-content: center;
 	}
 	ul {
 		margin: 0;
+		padding-inline-start: 0;
 	}
 	p {
 		margin: var(--spacing-100) 0;
@@ -57,13 +92,139 @@ const pathname = new URL(url).pathname;
 	a {
 		text-decoration: none;
 	}
-	a.active {
-		border-bottom: 3px solid var(--color-secondary);
+	li a {
 		padding: 0 var(--spacing-50);
 	}
-	img {
-		height: 100%;
-		width: 50px;
+	li a.active {
+		border-bottom: 3px solid var(--color-secondary);
+	}
+	li a:hover {
+		border-bottom: 3px solid var(--color-neutral-primary);
+	}
+	#logo {
 		margin-right: var(--spacing-100);
+		position: absolute;
+		left: var(--spacing-150);
+		animation-duration: .75s;
+  		animation-name: slideout;
+		display: none;
+		height: 100%;
+	}
+	img {
+		height: auto;
+		width: 70px;
+	}
+	#logo.show {
+		display: block;
+		animation-duration: .75s;
+  		animation-name: slidein;
+		bottom: 0;
+	}
+	@keyframes slidein {
+		0% {
+			bottom: 100%;
+		}
+		75% {
+			bottom: -4px;
+		}
+		100% {
+			bottom: 0px;
+		}
+	}
+	@keyframes slideout {
+		0% {
+			bottom: 0px;
+			display: block;
+		}
+		25% {
+			bottom: -4px;
+		}
+		100% {
+			bottom: 100%;
+		}
+	}
+	#hamburger {
+		display: none;
+	}
+	@media screen and (max-width: 767px) {
+		header {
+			height: var(--spacing-350);
+		}
+		#logo {
+			margin: 0 auto;
+			position: absolute;
+			left: 0;
+			right: 0;
+			animation-duration: .75s;
+			animation-name: slideout;
+			display: none;
+			height: 100%;
+			text-align: center;
+		}
+		img {
+			width: 65px;
+		}
+		#logo.show {
+			display: block;
+			animation-duration: .75s;
+			animation-name: slidein;
+			bottom: -0px;
+		}
+		#nav-toggle {
+			display: block;
+			z-index: 1;
+			position: absolute;
+			left: 20px;
+			background-color: transparent;
+			border: none;
+		}
+		line {
+			stroke: var(--color-neutral-primary);
+		}
+		nav {
+			height: 0;
+			overflow: hidden;
+			transition: height .5s ease-out;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			background-color: var(--color-primary);
+		}
+		nav.open {
+			height: 250px;
+			transition: height .5s ease-in;
+		}
+		ul {
+			flex-direction: column;
+			width: 100%;
+			align-items: flex-end; 
+		}
+		.line {
+			transition: all .5s ease-in-out;
+		}
+
+		.top {
+			transform-origin: 5px 8px;
+		}
+
+		.middle {
+			transition: opacity .5s ease-in-out;
+		}
+
+		.bottom {
+			transform-origin: 5px 22px;
+		}
+
+		#nav-toggle.open .top {
+			transform: rotate(45deg) translate(3px, 0px);
+		}
+
+		#nav-toggle.open .middle {
+			opacity: 0;
+		}
+
+		#nav-toggle.open .bottom {
+			transform: rotate(-45deg) translate(0px, 3px);
+		}
 	}
 </style>
