@@ -26,6 +26,9 @@ const navItems = [{
 		<link href="/fonts/fontawesome/css/fontawesome.css" rel="stylesheet" />
 		<link href="/fonts/fontawesome/css/brands.css" rel="stylesheet" />
 		<link href="/fonts/fontawesome/css/solid.css" rel="stylesheet" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 	</head>
 	<body>
 		<Header logo={'/lobster-logic-logo-bg-fill.svg'} navItems={navItems} />
@@ -44,13 +47,6 @@ const navItems = [{
 			rgb(var(--accent-light)) 30%,
 			white 60%
 		);
-	}
-	@font-face {
-		font-family: 'Montserrat';
-		src: url('/fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
-		font-weight: normal;
-		font-style: normal;
-		font-display: swap;
 	}
 	html {
 		font-family: var(--font-body);
