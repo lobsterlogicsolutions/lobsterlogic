@@ -150,7 +150,7 @@ const { title } = Astro.props;
 		border: 2px solid var(--color-secondary);
 		color: var(--color-neutral-primary);
 		padding: var(--spacing-100);
-		font-size: var(--spacing-100);
+		font-size: var(--fs-2);
 		margin-bottom: var(--spacing-50);
 	}
 	button:hover, button:focus-visible, button:focus {
@@ -179,11 +179,21 @@ const { title } = Astro.props;
 	}
 	.flex-item {
 		flex: 1;
+		min-width: 300px;
 	}
 	.hidden {
 		display:none;
 	}
 	.form-message {
 		text-align: center;
+	}
+	@media screen and (max-width: 767px) {
+		.flex-container {
+			flex-wrap: wrap;
+			gap: 0;
+		}
+		.flex-item {
+			flex-basis: 100%;
+		}
 	}
 </style>

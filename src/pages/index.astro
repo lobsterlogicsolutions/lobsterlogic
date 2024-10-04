@@ -60,9 +60,7 @@ export const prerender = false;
 
 <style>
 	main {
-		color: var(--color-primary);
-		font-size: var(--spacing-125);
-		line-height: 1.6;
+		color: var(--color-primary);	
 	}
 	section, .section {
 		padding: var(--spacing-100);
@@ -83,13 +81,6 @@ export const prerender = false;
 		padding: 
 		background-color: var(--color-primary);
 		color: var(--color-neutral-primary);
-	}
-	h1 {
-		font-size: var(--spacing-400);
-		font-weight: 700;
-		line-height: 1;
-		text-align: center;
-		margin-bottom: var(--spacing-100);
 	}
 	ul {
 		display: flex;
@@ -116,10 +107,6 @@ export const prerender = false;
 		color: var(--color-neutral-primary);
 		padding: var(--spacing-100);
 	}
-	img {
-		height: 350px;
-		width: auto;
-	}
 	a:hover, a:focus-visible {
 		background-color: var(--color-neutral-primary);
 		border: 2px solid var(--color-primary);
@@ -128,12 +115,32 @@ export const prerender = false;
 	a:focus-visible {
 		outline-offset: var(--spacing-25);
 	}
+
+	/* Start Hero Styling */
 	.hero {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
 		align-items: center;
 		padding: var(--spacing-200) 0;
+	}
+	.hero p {
+		font-size: var(--fs-8);
+		font-weight: 700;
+		line-height: 1;
+		text-align: center;
+		margin: 0 var(--spacing-250);
+	}
+	h1 {
+		font-size: var(--fs-13);
+		font-weight: 700;
+		line-height: 1;
+		text-align: center;
+		margin-bottom: var(--spacing-100);
+	}
+	img {
+		height: 300px;
+		width: auto;
 	}
 	.sub-heading {
 		display: flex;
@@ -142,25 +149,32 @@ export const prerender = false;
 		justify-content: center;
 		width: 100%;
 	}
-	.hero p {
-		font-size: var(--spacing-250);
-		font-weight: 700;
-		line-height: 1;
-		text-align: center;
-		margin: 0 var(--spacing-250);
-	}
 	hr {
 		background-color: var(--color-secondary);
 		max-width: 100px;
 		flex-basis: 25%;
 		height: 5px;
 		margin: 0;
+		border: none;
 	}
-	.icon {
-		font-size: var(--spacing-200);
+	@media screen and (max-width: 480px) {
+		.hero {
+			padding-bottom: 0;
+		}
+		.hero p {
+			font-size: var(--fs-6);
+			margin: 0 var(--spacing-200);
+		}
+		h1 {
+			font-size: var(--fs-10);
+		}
+		img {
+			height: 200px;
+		}
+		hr {
+			height: 3px;
+			max-width: 80px;
+		}
 	}
-	.label {
-		margin-left: var(--spacing-100);
-	}
-
+	/* End Hero Styling */
 </style>

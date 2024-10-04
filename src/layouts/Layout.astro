@@ -73,4 +73,59 @@ const navItems = [{
 	body {
 		margin: var(--spacing-0);
 	}
+	
+	/* Desktop Typography Elements */
+	h1, .h1 {
+		font-size: var(--fs-10);
+	}
+	h2, .h2 {
+		font-size: var(--fs-7);
+	}
+	h3, .h3 {
+		font-size: var(--fs-6);
+	}
+	h4, .h4 {
+		font-size: var(--fs-5);
+	}
+	h5, .h5 {
+		font-size: var(--fs-4);
+	}
+	h6, .h6 {
+		font-size: var(--fs-3);
+	}
+	p, .p, li, .li, label, .label {
+		font-size: var(--fs-4);
+	}
+	input {
+		font-size: var(--fs-3);
+	}
+
+	/* Mobile Typography Elements */
+	@media screen and (max-width: 480px) {
+		h1, .h1 {
+			font-size: var(--fs-8);
+		}
+		h2, .h2 {
+			font-size: var(--fs-6);
+		}
+		h3, .h3 {
+			font-size: var(--fs-5);
+		}
+		h4, .h4 {
+			font-size: var(--fs-4);
+		}
+		h5, .h5 {
+			font-size: var(--fs-3);
+		}
+		h6, .h6 {
+			font-size: var(--fs-2);
+		}
+		p, .p, li, .li, label, .label {
+			font-size: var(--fs-2);
+		}
+		input {
+			font-size: var(--fs-1);
+		}
+	}
+
 </style>
