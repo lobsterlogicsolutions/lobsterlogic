@@ -39,7 +39,7 @@ const pathname = new URL(url).pathname;
 	const hero = document.getElementById('hero');
 	const navToggle = document.getElementById('nav-toggle');
 	if(hero) {
-		window.onscroll = (e) => {
+		window.onscroll = () => {
 			if(window.scrollY > (hero?.scrollTop + hero?.offsetHeight)) {
 				logo?.classList.add('show');
 				header?.classList.add('shift');
@@ -50,11 +50,11 @@ const pathname = new URL(url).pathname;
 		};
 	}
 
-	navToggle?.addEventListener('click', (e) => {
+	navToggle?.addEventListener('click', () => {
 		document.querySelector('nav')?.classList.toggle('open');
 		navToggle?.classList.toggle('open');
 		const isExpanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
-  		navToggle.setAttribute('aria-expanded', !isExpanded);
+  		navToggle.setAttribute('aria-expanded', `${!isExpanded}`);
 	})
 
 </script>
