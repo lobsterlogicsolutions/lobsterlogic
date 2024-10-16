@@ -13,15 +13,11 @@ const navItems = [{
 	text: 'Home'
 },
 {
-	href: '#',
+	href: '/about/',
 	text: 'About'
 },
 {
-	href: '#',
-	text: 'Work'
-},
-{
-	href: '#',
+	href: '/contact/',
 	text: 'Contact'
 }];
 ---
@@ -35,9 +31,11 @@ const navItems = [{
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<!-- Font Awesome -->
 		<link href="/fonts/fontawesome/css/fontawesome.css" rel="stylesheet" />
 		<link href="/fonts/fontawesome/css/brands.css" rel="stylesheet" />
 		<link href="/fonts/fontawesome/css/solid.css" rel="stylesheet" />
+		<!-- Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -97,8 +95,23 @@ const navItems = [{
 	p, .p, li, .li, label, .label {
 		font-size: var(--fs-4);
 	}
-	input {
+	input, textarea {
 		font-size: var(--fs-3);
+	}
+
+	section, .section {
+		padding: var(--spacing-100);
+		width: 800px;
+		max-width: calc(100% - 2rem);
+		margin: auto;
+	}
+
+	section.bg, .section.bg {
+		width: 100%;
+		max-width: 100%;
+		padding: 0;
+		background-color: var(--color-primary);
+		color: var(--color-neutral-primary);
 	}
 
 	/* Mobile Typography Elements */
@@ -124,7 +137,7 @@ const navItems = [{
 		p, .p, li, .li, label, .label {
 			font-size: var(--fs-2);
 		}
-		input {
+		input, textarea {
 			font-size: var(--fs-1);
 		}
 	}
