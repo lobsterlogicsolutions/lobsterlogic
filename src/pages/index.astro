@@ -16,7 +16,7 @@ import ContactForm from '../components/ContactForm.astro';
 		</section>
 		<section>
 			<div>
-				<p>
+				<p class="center">
 					Lobster Logic Solutions delivers custom software consulting tailored to elevate Maine-based businesses. Our team of experts combines deep technical knowledge and a client-centric approach to solve unique challenges efficiently.
 				</p>
 			</div>
@@ -24,28 +24,33 @@ import ContactForm from '../components/ContactForm.astro';
 		<section class="bg">
 			<div class="section">
 				<h2>Our Services</h2>
-				<li>Application Development
-					<ul>
-						<li class="list-style">We craft custom applications to fit specific business needs using technologies like Java, JavaScript, Python, TypeScript, Flask, Django, React, and React Native.</li>
-					</ul>
-				</li>
-				<li>Company Workshops
-					<ul>
-						<li class="list-style">Enhance your team's capabilities with our workshops focused on new technologies and software best practices.</li>
-					</ul>
-				</li>
-				<li>IT Assessments
-					<ul>
-						<li class="list-style">We perform thorough assessments to pinpoint improvements in your IT setup and develop strategies for enhanced efficiency and security.</li>
-					</ul>
-				</li>
-				<li>Specialized Fields
-					<ul>
-						<li class="list-style">DevOps: We streamline your development and operations for better agility.</li>
-						<li class="list-style">Data Science: Our data-driven insights help inform your decision-making process.</li>
-						<li class="list-style">AI/ML Development: We integrate AI and ML to solve complex issues and drive innovation.</li>
-					</ul>
-				</li>
+				<ul>
+					<li><span class="list-header">Application Development</span>
+						<ul>
+							<li class="list-style">We craft custom applications to fit specific business needs using technologies like Java, JavaScript, Python, TypeScript, Flask, Django, React, and React Native.</li>
+						</ul>
+					</li>
+					<hr />
+					<li><span class="list-header">Company Workshops</span>
+						<ul>
+							<li class="list-style">Enhance your team's capabilities with our workshops focused on new technologies and software best practices.</li>
+						</ul>
+					</li>
+					<hr />
+					<li><span class="list-header">IT Assessments</span>
+						<ul>
+							<li class="list-style">We perform thorough assessments to pinpoint improvements in your IT setup and develop strategies for enhanced efficiency and security.</li>
+						</ul>
+					</li>
+					<hr />
+					<li><span class="list-header">Specialized Fields</span>
+						<ul>
+							<li class="list-style">DevOps: We streamline your development and operations for better agility.</li>
+							<li class="list-style">Data Science: Our data-driven insights help inform your decision-making process.</li>
+							<li class="list-style">AI/ML Development: We integrate AI and ML to solve complex issues and drive innovation.</li>
+						</ul>
+					</li>
+				</ul>
 			</div>
 		</section>
 		<section>
@@ -74,6 +79,12 @@ import ContactForm from '../components/ContactForm.astro';
 	.list-style {
 		list-style-type: disc;
 		margin-left: var(--spacing-250);
+	}
+	.list-header {
+		display: block;
+		border-bottom: 3px solid var(--color-secondary);
+		margin-bottom: var(--spacing-100);
+		padding-bottom: var(--spacing-25);
 	}
 	a {
 		display: flex;
