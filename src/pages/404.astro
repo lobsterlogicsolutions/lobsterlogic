@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
+// Have to server side render 404 per: https://www.astroawsamplify.com/limitations/
+export const prerender = false;
 ---
 
 <Layout title="404 | Lobster Logic Solutions, LLC">
