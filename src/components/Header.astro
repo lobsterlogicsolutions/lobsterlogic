@@ -10,13 +10,12 @@ interface Props {
 }
 
 const {navItems, title, logo } = Astro.props;
-const { url } = Astro.request;
+const pathname = Astro.url.pathname;
 
-const pathname = new URL(url).pathname;
 ---
 <header id="header">
 	{logo && <a id="logo" href="/"><img src={logo} /></a>}
-	{title && <p>{title}</p>}
+	{title && <a id="title" href="/">{title}</a>}
 	<button id="nav-toggle" aria-expanded="false">
 		<svg width="30" height="30" viewBox="0 0 30 30">
 			<line class="line top" x1="5" y1="8" x2="25" y2="8" stroke-width="3" stroke-linecap="round" />
@@ -79,7 +78,7 @@ const pathname = new URL(url).pathname;
 		position: sticky;
 		top: 0;
 		padding: 0 var(--spacing-300);
-		justify-content: center;
+		justify-content: flex-end;
 	}
 	ul {
 		margin: 0;
@@ -152,6 +151,7 @@ const pathname = new URL(url).pathname;
 	@media screen and (max-width: 767px) {
 		header {
 			height: var(--spacing-350);
+			justify-content: center;
 		}
 		#logo {
 			margin: 0 auto;

@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+---
+
+<Layout title="404 | Lobster Logic Solutions, LLC">
+    <section>
+        <span class="title">
+            <h1>4<span class="spacer">0</span>4</h1>
+            <img src="/lobster-logic-logo-bg-fill.svg" />
+        </span>
+        <p>Well, ya can't get there from here!</p>
+        <p>Try checking the address and make sure it's the one you're looking for.</p>
+    </section>
+</Layout>
+
+<style>
+section {
+    text-align: center;
+    min-height: calc(100vh - 219px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.title {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-100)
+}
+h1 {
+    margin: 0;
+    font-size: 200px;
+    color: var(--color-primary);
+}
+img {
+    position: absolute;
+    height: 100%;
+    width: auto;
+}
+.spacer {
+    margin: 0 var(--spacing-400);
+}
+</style>
