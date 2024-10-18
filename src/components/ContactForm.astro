@@ -1,4 +1,6 @@
 ---
+import Loader from "./Loader.astro";
+
 export const prerender = false;
 
 const siteKey = import.meta.env.CAPTCHA_KEY ?? process.env.CAPTCHA_KEY;
@@ -30,9 +32,12 @@ const { title } = Astro.props;
 		Send message <i class="fa-solid fa-arrow-right"></i>
 	</button>
 </form>
+<div id="loader" class="hidden">
+	<Loader message="Sending message..."/>
+</div>
 	
 <script is:inline>
-	let isLoading = false;
+	const loader = document?.getElementById('loader');
 	const form = document?.getElementById('contact-form');
 	const formMessage = document.querySelector(".form-message");
 	const button = document?.querySelector('.g-recaptcha');
@@ -41,7 +46,7 @@ const { title } = Astro.props;
 	const businessField = document.getElementById('business');
 	const messageField = document.getElementById('message');
 
-	function toggleFieldsActive(activeState) {
+	function toggleFieldsDisabled(activeState) {
 		nameField.disabled = activeState;
 		emailField.disabled = activeState;
 		businessField.disabled = activeState;
@@ -50,12 +55,14 @@ const { title } = Astro.props;
 	}
 
 	function onSubmit (token) {
-		toggleFieldsActive(true);
+		toggleFieldsDisabled(true);
+		loader.classList.toggle('hidden');
+		form.classList.toggle('hidden');
+
 		// Hide message if it's already showing
 		formMessage.classList.add('hidden')
 		formMessage.innerText = '';
 
-		isLoading = true;
 		fetch("/api/recaptcha", {
 			method: "POST",
 			body: JSON.stringify({ recaptcha: token })
@@ -65,7 +72,6 @@ const { title } = Astro.props;
 			if (gResponse.success) {
 				form.requestSubmit();
 			} else {
-				isLoading = false;
 				submitFailure();
 			}
 		})
@@ -83,36 +89,36 @@ const { title } = Astro.props;
 			})
 		}).then((response) => {
 			response.json()
-			isLoading = false;
 			if(response.status === 200) {
 				submitSuccess();
 			}
 		}).catch((error) => {
-			isLoading = false;
 			throw(error);
 		});
 	}
 
 	function submitSuccess() {
-		form.classList.add('hidden');
-		formMessage.append("Thanks for reaching out! I'll be in touch as soon as I can.");
+		formMessage.append("Thanks for reaching out! We'll be in touch as soon.");
 		formMessage.classList.remove('hidden');
 		nameField.value = '';
 		emailField.value = '';
 		businessField.value = '';
 		messageField.value = '';
-		toggleFieldsActive(false);
+		toggleFieldsDisabled(false);
+		loader.classList.toggle('hidden');
 	}
 
 	function submitFailure() {
 		formMessage.append("Oh boy, looks like something went wrong. Please try again later.");
 		formMessage.classList.remove('hidden');
-		toggleFieldsActive(false);
+		toggleFieldsDisabled(false);
+		loader.classList.toggle('hidden');
+		form.classList.toggle('hidden');
 	}
 
 	form?.addEventListener('submit', async (e) => {
 		e.preventDefault();
-		toggleFieldsActive(true);
+		toggleFieldsDisabled(true);
 		try {
 			const name = e.target?.name?.value;
 			const email = e.target?.email?.value;

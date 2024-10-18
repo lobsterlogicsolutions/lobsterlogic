@@ -1,0 +1,49 @@
+---
+interface Props {
+    message?: string;
+    variant?: 'light' | 'dark';
+}
+const {message = 'Loading...', variant = 'dark'} = Astro.props
+---
+<div class="loading-content">
+	<div id="loadingIndicator" class=`spinner ${variant}`></div>
+	{message && <p class={variant}>{message}</p>}
+</div>
+
+<style>
+.loading-content {
+    text-align: center;
+}
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 8px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    animation: spin 1.5s ease-in-out infinite;
+    margin: 20px auto; 
+}
+.spinner.light {
+    border-top-color: var(--color-neutral-primary);
+}
+.spinner.dark {
+    border-top-color: var(--color-primary); 
+}
+p {
+    font-family: var(--font-heading);
+}
+p.light {
+    color: var(--color-neutral-primary)
+}
+p.dark {
+    color: var(--color-primary); 
+}
+  
+@keyframes spin {
+    20% {
+		transform: rotate(-35deg);	
+	}
+	90%, 100% {
+        transform: rotate(360deg);
+    }
+}
+</style>
