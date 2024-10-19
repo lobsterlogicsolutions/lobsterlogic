@@ -1,0 +1,205 @@
+---
+import Loader from "./Loader.astro";
+
+export const prerender = false;
+
+const siteKey = import.meta.env.CAPTCHA_KEY ?? process.env.CAPTCHA_KEY;
+const { title } = Astro.props;
+---
+<script is:inline src="https://www.google.com/recaptcha/api.js"></script>
+<p class="form-message hidden"></p>
+<form id="contact-form">
+	{title && <p class="title">{title}</p>}
+	<div class="flex-container">
+		<div class="flex-item">
+			<label for="name">Your name:</label>
+			<input id="name" name="name" placeholder="Input your name" required />
+		</div>
+		<div class="flex-item">
+			<label for="email">Your email address:</label>
+			<input id="email" type="email" name="email" placeholder="Input your email" required />
+		</div>
+	</div>
+	<div class="flex-container">
+		<div class="flex-item">
+			<label for="business">Your Business or Organization:</label>
+			<input id="business" name="business" placeholder="Input your business or organization" />
+		</div>
+	</div>
+	<label for="message">Your message:</label>
+	<textarea id="message" name="message" placeholder="Input your message here" required></textarea>
+	<button class="g-recaptcha" data-sitekey={siteKey} data-callback="onSubmit" data-action="submit" type="submit"> 
+		Send message <i class="fa-solid fa-arrow-right"></i>
+	</button>
+</form>
+<div id="loader" class="hidden">
+	<Loader message="Sending message..."/>
+</div>
+	
+<script is:inline>
+	const loader = document?.getElementById('loader');
+	const form = document?.getElementById('contact-form');
+	const formMessage = document.querySelector(".form-message");
+	const button = document?.querySelector('.g-recaptcha');
+	const nameField = document.getElementById('name');
+	const emailField = document.getElementById('email');
+	const businessField = document.getElementById('business');
+	const messageField = document.getElementById('message');
+
+	function toggleFieldsDisabled(activeState) {
+		nameField.disabled = activeState;
+		emailField.disabled = activeState;
+		businessField.disabled = activeState;
+		messageField.disabled = activeState;
+		button.disabled = activeState;
+	}
+
+	function onSubmit (token) {
+		toggleFieldsDisabled(true);
+		loader.classList.toggle('hidden');
+		form.classList.toggle('hidden');
+
+		// Hide message if it's already showing
+		formMessage.classList.add('hidden')
+		formMessage.innerText = '';
+
+		fetch("/api/recaptcha", {
+			method: "POST",
+			body: JSON.stringify({ recaptcha: token })
+		})
+		.then((response) => response.json())
+		.then((gResponse) => {
+			if (gResponse.success) {
+				form.requestSubmit();
+			} else {
+				submitFailure();
+			}
+		})
+	}
+
+	function sendEmail ({name, email, business, message}) {
+		fetch("/api/send-email", {
+			method: "POST",
+			body: JSON.stringify({
+				name: name,
+				email: email,
+				email: email,
+				business: business,
+				message: message,
+			})
+		}).then((response) => {
+			response.json()
+			if(response.status === 200) {
+				submitSuccess();
+			}
+		}).catch((error) => {
+			throw(error);
+		});
+	}
+
+	function submitSuccess() {
+		formMessage.append("Thanks for reaching out! We'll be in touch as soon.");
+		formMessage.classList.remove('hidden');
+		nameField.value = '';
+		emailField.value = '';
+		businessField.value = '';
+		messageField.value = '';
+		toggleFieldsDisabled(false);
+		loader.classList.toggle('hidden');
+	}
+
+	function submitFailure() {
+		formMessage.append("Oh boy, looks like something went wrong. Please try again later.");
+		formMessage.classList.remove('hidden');
+		toggleFieldsDisabled(false);
+		loader.classList.toggle('hidden');
+		form.classList.toggle('hidden');
+	}
+
+	form?.addEventListener('submit', async (e) => {
+		e.preventDefault();
+		toggleFieldsDisabled(true);
+		try {
+			const name = e.target?.name?.value;
+			const email = e.target?.email?.value;
+			const business = e.target?.business?.value;
+			const message = e.target?.message.value;
+			sendEmail({name, email, business, message});
+		} catch (error) {
+			submitFailure();
+		};
+	});
+</script>
+
+<style>
+	form {
+		display: flex;
+		flex-direction: column;
+		padding: var(--spacing-50) var(--spacing-100);
+	}
+	input, textarea {
+		display: block;
+		margin-bottom: var(--spacing-100);
+		width: 100%;
+		box-sizing: border-box;
+		border-radius: var(--spacing-50);
+		padding: var(--spacing-50);
+		border: 2px solid var(--color-primary);
+	}
+	textarea {
+		vertical-align: top;
+  		height: 7rem;
+	}
+	button {
+		border-radius: var(--spacing-75);
+		background-color: var(--color-primary);
+		border: 2px solid var(--color-secondary);
+		color: var(--color-neutral-primary);
+		padding: var(--spacing-100);
+		font-size: var(--fs-2);
+		margin-bottom: var(--spacing-50);
+	}
+	button:hover, button:focus-visible, button:focus {
+		background-color: var(--color-neutral-primary);
+		border: 2px solid var(--color-primary);
+		color: var(--color-primary);
+		cursor: pointer;
+	}
+	button:disabled {
+		background-color: var(--color-neutral-secondary);
+		border: 2px solid var(--color-neutral-secondary);
+		color: var(--color-neutral-primary);
+		cursor: not-allowed;
+	}
+	button:focus-visible {
+		outline-offset: 3px;
+	}
+	.title {
+		text-align: center;
+		font-family: var(--font-heading);
+	}
+	.flex-container {
+		display: flex;
+		gap: var(--spacing-100);
+
+	}
+	.flex-item {
+		flex: 1;
+		min-width: 300px;
+	}
+	.hidden {
+		display:none;
+	}
+	.form-message {
+		text-align: center;
+	}
+	@media screen and (max-width: 767px) {
+		.flex-container {
+			flex-wrap: wrap;
+			gap: 0;
+		}
+		.flex-item {
+			flex-basis: 100%;
+		}
+	}
+</style>

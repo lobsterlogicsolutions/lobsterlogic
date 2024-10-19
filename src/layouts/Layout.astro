@@ -1,0 +1,155 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/variables.css';
+
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+const navItems = [{
+	href: '/',
+	text: 'Home'
+},
+{
+	href: '/about/',
+	text: 'About'
+},
+{
+	href: '/contact/',
+	text: 'Contact'
+}];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />		
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta property="og:image" content="/og-image.jpg">
+		<meta property="og:image:type" content="image/jpg">
+		<meta property="og:image:width" content="1024">
+		<meta property="og:image:height" content="1024">
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<!-- Font Awesome -->
+		<link href="/fonts/fontawesome/css/fontawesome.css" rel="stylesheet" />
+		<link href="/fonts/fontawesome/css/brands.css" rel="stylesheet" />
+		<link href="/fonts/fontawesome/css/solid.css" rel="stylesheet" />
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<Header logo={'/lobster-logic-logo-bg-fill.svg'} navItems={navItems} />
+		<slot />
+		<Footer copyright={"Lobster Logic Solutions, LLC."}/>
+	</body>
+</html>
+<style is:global>
+	:root {
+		--accent: 136, 58, 234;
+		--accent-light: 224, 204, 250;
+		--accent-dark: 49, 10, 101;
+		--accent-gradient: linear-gradient(
+			45deg,
+			rgb(var(--accent)),
+			rgb(var(--accent-light)) 30%,
+			white 60%
+		);
+	}
+	html {
+		font-family: var(--font-body);
+		background: var(--color-neutral-primary);
+		font-size: 16px;
+	}
+	textarea, input {
+		font-family: var(--font-body);
+	}
+	h1, h2, h3, h4, h5, h6, button, label {
+		font-family: var(--font-heading);
+	}
+	body {
+		margin: var(--spacing-0);
+	}
+	
+	/* Desktop Typography Elements */
+	h1, .h1 {
+		font-size: var(--fs-10);
+	}
+	h2, .h2 {
+		font-size: var(--fs-7);
+	}
+	h3, .h3 {
+		font-size: var(--fs-6);
+	}
+	h4, .h4 {
+		font-size: var(--fs-5);
+	}
+	h5, .h5 {
+		font-size: var(--fs-4);
+	}
+	h6, .h6 {
+		font-size: var(--fs-3);
+	}
+	p, .p, li, .li, label, .label {
+		font-size: var(--fs-4);
+	}
+	input, textarea {
+		font-size: var(--fs-3);
+	}
+
+	section, .section {
+		padding: var(--spacing-100);
+		width: 800px;
+		max-width: calc(100% - 2rem);
+		margin: auto;
+	}
+
+	section.bg, .section.bg {
+		width: 100%;
+		max-width: 100%;
+		padding: 0;
+		background-color: var(--color-primary);
+		color: var(--color-neutral-primary);
+	}
+
+	.center {
+		text-align: center;
+	}
+
+	/* Mobile Typography Elements */
+	@media screen and (max-width: 480px) {
+		h1, .h1 {
+			font-size: var(--fs-8);
+		}
+		h2, .h2 {
+			font-size: var(--fs-6);
+		}
+		h3, .h3 {
+			font-size: var(--fs-5);
+		}
+		h4, .h4 {
+			font-size: var(--fs-4);
+		}
+		h5, .h5 {
+			font-size: var(--fs-3);
+		}
+		h6, .h6 {
+			font-size: var(--fs-2);
+		}
+		p, .p, li, .li, label, .label {
+			font-size: var(--fs-2);
+		}
+		input, textarea {
+			font-size: var(--fs-1);
+		}
+	}
+
+</style>
