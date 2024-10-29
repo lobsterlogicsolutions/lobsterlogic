@@ -6,7 +6,10 @@ interface NavItem {
 interface Props {
 	navItems: NavItem[];
 	title?: string;
-	logo?: string;
+	logo?: {
+		src: string;
+		alt: string
+	};
 }
 
 const {navItems, title, logo } = Astro.props;
@@ -14,7 +17,7 @@ const pathname = Astro.url.pathname;
 
 ---
 <header id="header">
-	{logo && <a id="logo" href="/"><img src={logo} /></a>}
+	{logo && <a id="logo" href="/"><img src={logo.src} alt={logo.alt} /></a>}
 	{title && <a id="title" href="/">{title}</a>}
 	<button id="nav-toggle" aria-expanded="false">
 		<svg width="30" height="30" viewBox="0 0 30 30">
