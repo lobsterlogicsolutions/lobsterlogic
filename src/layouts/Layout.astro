@@ -37,7 +37,7 @@ const gtmId = import.meta.env.GTM_ID ?? process.env.GTM_ID;
 			function gtag(){dataLayer.push(arguments);}
 			gtag('js', new Date());
 
-			gtag('config', `${{gtmId}}`);
+			gtag('config', `${gtmId}`);
 		</script>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
