@@ -23,7 +23,8 @@ const navItems = [{
 }];
 
 const logo = { src: '/lobster-logic-logo-bg-fill.svg', alt:"Lobster Logic Solutions, LLC."};
-const  gtmId = import.meta.env.GTM_ID ?? process.env.GTM_ID;
+
+const gtmId = import.meta.env.GTM_ID ?? process.env.GTM_ID;
 ---
 
 <!doctype html>
@@ -31,7 +32,7 @@ const  gtmId = import.meta.env.GTM_ID ?? process.env.GTM_ID;
 	<head>
 		<!-- Google tag (gtag.js) -->
 		<script async src={`https://www.googletagmanager.com/gtag/js?id=${gtmId}`}></script>
-		<script is:inline>
+		<script is:inline define:vars={ gtmId }>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
 			gtag('js', new Date());
